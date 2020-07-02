@@ -19,10 +19,6 @@ namespace Aow3NameReplacer.Model
         /// <summary>
         /// 置換ファイルの内容。
         /// </summary>
-        /// <remarks>
-        /// <see cref="FilePath"/>にエラーがない場合
-        /// 
-        /// </remarks>
         public byte[] FileContent {
             get
             {
