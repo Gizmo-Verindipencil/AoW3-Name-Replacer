@@ -1,4 +1,4 @@
-﻿namespace Aow3NameReplacer.Warning
+﻿namespace Aow3NameReplacer.Warnings
 {
     /// <summary>
     /// 名称置換の警告。

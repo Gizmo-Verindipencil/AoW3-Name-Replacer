@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Aow3NameReplacer.View
+namespace Aow3NameReplacer.Views
 {
     /// <summary>
     /// 名称置換の表示。

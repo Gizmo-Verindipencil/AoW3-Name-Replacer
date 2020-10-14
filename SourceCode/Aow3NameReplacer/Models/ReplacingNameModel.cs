@@ -1,11 +1,11 @@
-﻿using Aow3NameReplacer.Extension;
-using Aow3NameReplacer.Warning;
+﻿using Aow3NameReplacer.Extensions;
+using Aow3NameReplacer.Warnings;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Aow3NameReplacer.Model
+namespace Aow3NameReplacer.Models
 {
     /// <summary>
     /// 名称置換のロジック。

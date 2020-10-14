@@ -1,10 +1,10 @@
-﻿using Aow3NameReplacer.Model;
-using Aow3NameReplacer.View;
-using Aow3NameReplacer.Warning;
+﻿using Aow3NameReplacer.Models;
+using Aow3NameReplacer.Views;
+using Aow3NameReplacer.Warnings;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Aow3NameReplacer.Controller
+namespace Aow3NameReplacer.Controllers
 {
     /// <summary>
     /// 名称置換の制御。

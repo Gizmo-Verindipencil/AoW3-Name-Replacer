@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Text;
 
-namespace Aow3NameReplacer.Extension
+namespace Aow3NameReplacer.Extensions
 {
     /// <summary>
     /// <see cref="Byte"/> の拡張メソッド。
     /// </summary>
-    public static class ByteExtension
+    public static class ByteExtensions
     {
         /// <summary>
         /// <see cref="Byte"/>配列上で、指定した文字列に相当する情報を置換します。

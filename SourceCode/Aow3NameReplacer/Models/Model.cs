@@ -1,4 +1,4 @@
-﻿namespace Aow3NameReplacer.Model
+﻿namespace Aow3NameReplacer.Models
 {
     /// <summary>
     /// ロジック。

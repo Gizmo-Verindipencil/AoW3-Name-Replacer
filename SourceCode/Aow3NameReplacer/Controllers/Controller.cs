@@ -1,4 +1,4 @@
-﻿namespace Aow3NameReplacer.Controller
+﻿namespace Aow3NameReplacer.Controllers
 {
     /// <summary>
     /// 制御。
