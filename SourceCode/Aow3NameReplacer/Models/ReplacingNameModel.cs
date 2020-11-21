@@ -19,7 +19,7 @@ namespace Aow3NameReplacer.Models
         /// <summary>
         /// 置換ファイルの内容。
         /// </summary>
-        public byte[] FileContent {
+        public byte[] FileContents {
             get
             {
                 var warnings = GetFilePathWarnings();
@@ -27,14 +27,14 @@ namespace Aow3NameReplacer.Models
                 {
                     return null;
                 }
-                if (this._fileContent == null)
+                if (this._fileContents == null)
                 {
-                    this._fileContent = File.ReadAllBytes(this.FilePath);
+                    this._fileContents = File.ReadAllBytes(this.FilePath);
                 }
-                return this._fileContent;
+                return this._fileContents;
             }
         }
-        private byte[] _fileContent;
+        private byte[] _fileContents;
         /// <summary>
         /// 古い1番目の名前。（＝置換される今の名前）
         /// </summary>
@@ -219,12 +219,12 @@ namespace Aow3NameReplacer.Models
         {
             var warnings = new List<ReplacingNameWarning>();
             var value = GetValue(property);
-            if (this.FileContent == null)
+            if (this.FileContents == null)
             {
                 // ファイルパスの指定前に反映しない
                 return warnings;
             }
-            var count = this.FileContent.Count(value);
+            var count = this.FileContents.Count(value);
             if (count == 0)
             {
                 var message = string.Format("[{0}]は対象のファイル内に存在しません。", this.OldFirstName);
@@ -262,14 +262,14 @@ namespace Aow3NameReplacer.Models
         private List<ReplacingNameWarning> GetUnintentionalReplaceingWarningsBetweenOlds(ReplacingNameWarning.Property property)
         {
             var warnings = new List<ReplacingNameWarning>();
-            if (string.IsNullOrEmpty(this.OldFirstName) || string.IsNullOrEmpty(this.OldSecondName) || this.FileContent == null)
+            if (string.IsNullOrEmpty(this.OldFirstName) || string.IsNullOrEmpty(this.OldSecondName) || this.FileContents == null)
             {
                 // 判定に必要な要素が指定される前に判定しない
                 return warnings;
             }
             var firstBytes = Encoding.Unicode.GetBytes(this.OldFirstName);
             var countFirstIncludingSecond = firstBytes.Count(this.OldSecondName);
-            var countFileIncludingFirst = this.FileContent.Count(this.OldFirstName);
+            var countFileIncludingFirst = this.FileContents.Count(this.OldFirstName);
             if (countFirstIncludingSecond > 1 && countFileIncludingFirst > 0)
             {
                 var message = 
@@ -337,7 +337,7 @@ namespace Aow3NameReplacer.Models
             
             File.WriteAllBytes(
                 replaced,
-                this._fileContent
+                this._fileContents
                     .Replace(this.OldSecondName, this.NewSecondName, GetMaxLength(ReplacingNameWarning.Property.NewSecondName))
                     .Replace(this.OldFirstName, this.NewFirstName, GetMaxLength(ReplacingNameWarning.Property.NewFirstName)));
             if (File.Exists(backup)) File.Delete(backup);
