@@ -1,7 +1,7 @@
 ﻿namespace Aow3NameReplacer.Controllers
 {
     /// <summary>
-    /// 制御。
+    /// コントローラーを提供します。
     /// </summary>
     public class Controller
     {

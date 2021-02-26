@@ -7,15 +7,22 @@ using System.Linq;
 namespace Aow3NameReplacer.Controllers
 {
     /// <summary>
-    /// 名称置換の制御。
+    /// 名称置換のコントローラーを提供します。
     /// </summary>
     public class ReplacingNameController : Controller
     {
+        /// <summary>
+        /// モデルを取得または設定します。
+        /// </summary>
         public ReplacingNameModel Model = new ReplacingNameModel();
+        
+        /// <summary>
+        /// ビューを取得または設定します。
+        /// </summary>
         public ReplacingNameView View = new ReplacingNameView();
 
         /// <summary>
-        /// 実行する。
+        /// 名称置換を実行します。
         /// </summary>
         public override void Execute()
         {
@@ -31,9 +38,9 @@ namespace Aow3NameReplacer.Controllers
         }
 
         /// <summary>
-        /// ユーザーに各情報の入力を促す。
+        /// 処理に必要な情報の入力をビューに要求します。
         /// </summary>
-        /// <param name="property">対象プロパティ。</param>
+        /// <param name="property">入力を要求するプロパティ。</param>
         private void SetProperty(ReplacingNameWarning.Property property)
         {
             var retry = true;
@@ -81,10 +88,13 @@ namespace Aow3NameReplacer.Controllers
         }
 
         /// <summary>
-        /// 警告すべきエラーを順次ユーザーに確認する。
+        /// 全ての警告すべきエラーの確認をビューに要求します。
         /// </summary>
         /// <param name="warnings">警告。</param>
-        /// <returns>操作の続行。（True：する、False：しない）</returns>
+        /// <returns>
+        /// 操作の続行（True：する、False：しない）を返します。
+        /// エラーに対するユーザーの応答が「続行」でない場合に<c>false</c>を返します。
+        /// </returns>
         private bool ConfirmAllWarnings(IEnumerable<ReplacingNameWarning> warnings)
         {
             if (warnings.Count() == 0)

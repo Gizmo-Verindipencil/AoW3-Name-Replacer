@@ -1,12 +1,12 @@
 ﻿namespace Aow3NameReplacer.Warnings
 {
     /// <summary>
-    /// 名称置換の警告。
+    /// 名称置換の警告を提供します。
     /// </summary>
     public class ReplacingNameWarning : Warning
     {
         /// <summary>
-        /// 検証プロパティ。
+        /// 検証対象のプロパティを定義します。
         /// </summary>
         public enum Property
         {
@@ -18,7 +18,7 @@
         }
 
         /// <summary>
-        /// 警告レベル。
+        /// 警告レベルを定義します。
         /// </summary>
         public enum WarningLevel
         {
@@ -27,12 +27,12 @@
         }
 
         /// <summary>
-        /// 検証プロパティ。
+        /// 検証プロパティを取得または設定します。
         /// </summary>
         public Property TargetProperty { get; set; }
 
         /// <summary>
-        /// 警告レベル。
+        /// 警告レベルを取得または設定します。
         /// </summary>
         public WarningLevel Level { get; set; }
     }

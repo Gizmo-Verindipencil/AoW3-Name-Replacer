@@ -1,7 +1,7 @@
 ﻿namespace Aow3NameReplacer.Models
 {
     /// <summary>
-    /// ロジック。
+    /// モデルを提供します。
     /// </summary>
     public class Model
     {

@@ -3,12 +3,12 @@
 namespace Aow3NameReplacer.Views
 {
     /// <summary>
-    /// 名称置換の表示。
+    /// 名称置換のビューを提供します。
     /// </summary>
     public class ReplacingNameView : View
     {
         /// <summary>
-        /// 機能名を表示する。
+        /// 機能名を表示します。
         /// </summary>
         public override void ShowTitle()
         {
