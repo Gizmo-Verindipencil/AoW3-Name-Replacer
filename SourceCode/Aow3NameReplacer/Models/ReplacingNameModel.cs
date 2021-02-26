@@ -8,16 +8,18 @@ using System.Text;
 namespace Aow3NameReplacer.Models
 {
     /// <summary>
-    /// 名称置換のロジック。
+    /// 名称置換のモデルを提供します。
     /// </summary>
     public class ReplacingNameModel : Model
     {
         /// <summary>
-        /// 置換ファイルのパス。
+        /// 置換ファイルのパスを取得または設定します。
         /// </summary>
         public string FilePath { get; set; }
+
         /// <summary>
-        /// 置換ファイルの内容。
+        /// 置換ファイルのデータを取得します。
+        /// エラーが存在する場合は<c>null</c>を返します。
         /// </summary>
         public byte[] FileContents {
             get
@@ -35,26 +37,37 @@ namespace Aow3NameReplacer.Models
             }
         }
         private byte[] _fileContents;
+
         /// <summary>
-        /// 古い1番目の名前。（＝置換される今の名前）
+        /// 置換前のファーストネームを取得または設定します。
         /// </summary>
         public string OldFirstName { get; set; }
+
         /// <summary>
-        /// 新しい1番目の名前。（＝置換された後の名前）
+        /// 置換後のファーストネームを取得または設定します。
         /// </summary>
         public string NewFirstName { get; set; }
+
         /// <summary>
-        /// 古い2番目の名前。（＝置換される今の名前）
+        /// 置換前のラストネームを取得または設定します。
         /// </summary>
         public string OldSecondName { get; set; }
+
         /// <summary>
-        /// 新しい2番目の名前。（＝置換された後の名前）
+        /// 置換後のラストネームを取得または設定します。
         /// </summary>
         public string NewSecondName { get; set; }
 
+        /// <summary>
+        /// 名称置換に関する警告を取得します。
+        /// </summary>
+        /// <returns>
+        /// 処理の入力内容に問題がある場合、警告を返します。
+        /// </returns>
         public List<ReplacingNameWarning> GetWarnings()
         {
             var warnings = new List<ReplacingNameWarning>();
+
             // ファイルパスの警告
             warnings.AddRange(GetFilePathWarnings());
 
@@ -79,9 +92,11 @@ namespace Aow3NameReplacer.Models
         }
 
         /// <summary>
-        /// Profileファイルのパスに関する警告を取得する。
+        /// Profileファイルのパスに関する警告を取得します。
         /// </summary>
-        /// <returns>警告。</returns>
+        /// <returns>
+        /// ファイルの存在有無・拡張子に関する警告を返します。
+        /// </returns>
         private List<ReplacingNameWarning> GetFilePathWarnings()
         {
             var warnings = new List<ReplacingNameWarning>();
@@ -107,10 +122,12 @@ namespace Aow3NameReplacer.Models
         }
 
         /// <summary>
-        /// 項目の文字長に関する警告を取得する。
+        /// 項目の文字長に関する警告を取得します。
         /// </summary>
         /// <param name="property">対象プロパティ。</param>
-        /// <returns>警告。</returns>
+        /// <returns>
+        /// 項目の文字長に関する警告を返します。
+        /// </returns>
         private List<ReplacingNameWarning> GetLengthWarnings(ReplacingNameWarning.Property property)
         {
             var warnings = new List<ReplacingNameWarning>();
@@ -120,10 +137,12 @@ namespace Aow3NameReplacer.Models
         }
 
         /// <summary>
-        /// 項目が最大文字長を超えている場合の警告を取得する。
+        /// 項目が最大文字長を超えている場合の警告を取得します。
         /// </summary>
         /// <param name="property">対象プロパティ。</param>
-        /// <returns>警告。</returns>
+        /// <returns>
+        /// 項目の最大文字長超過の警告を返します。
+        /// </returns>
         private List<ReplacingNameWarning> GetOverlengthWarnings(ReplacingNameWarning.Property property)
         {
             var warnings = new List<ReplacingNameWarning>();
@@ -163,10 +182,12 @@ namespace Aow3NameReplacer.Models
         }
 
         /// <summary>
-        /// 警告プロパティに対応したプロパティの内容を取得する。
+        /// 警告プロパティに対応した内容を取得します。
         /// </summary>
         /// <param name="property">対象プロパティ。</param>
-        /// <returns>プロパティの内容。</returns>
+        /// <returns>
+        /// プロパティの内容を返します。
+        /// </returns>
         private string GetValue(ReplacingNameWarning.Property property)
         {
             var value = string.Empty;
@@ -189,10 +210,12 @@ namespace Aow3NameReplacer.Models
         }
 
         /// <summary>
-        /// 警告プロパティに対応した最大文字長を取得する。
+        /// 警告プロパティに対応した最大文字長を取得します。
         /// </summary>
         /// <param name="property">対象プロパティ。</param>
-        /// <returns>プロパティの最大文字長。</returns>
+        /// <returns>
+        /// プロパティの最大文字長を返します。
+        /// </returns>
         private int GetMaxLength(ReplacingNameWarning.Property property)
         {
             var maxLength = 0;
@@ -211,10 +234,12 @@ namespace Aow3NameReplacer.Models
         }
 
         /// <summary>
-        /// ファイルの置換対象が存在しない・複数存在する場合の警告を取得する。
+        /// ファイルの置換対象が存在しない・複数存在する場合の警告を取得します。
         /// </summary>
         /// <param name="property">対象プロパティ。</param>
-        /// <returns>警告。</returns>
+        /// <returns>
+        /// 置換対象に関する警告を返します。
+        /// </returns>
         private List<ReplacingNameWarning> GetUnintentionalReplacingWarnings(ReplacingNameWarning.Property property)
         {
             var warnings = new List<ReplacingNameWarning>();
@@ -251,14 +276,16 @@ namespace Aow3NameReplacer.Models
         }
 
         /// <summary>
-        /// 古い名前の組合せで、意図しない置換が行われる場合の警告を取得する。
+        /// 置換対象の組合せで、意図しない置換が行われる場合の警告を取得します。
         /// </summary>
         /// <remarks>
         /// 置換処理は2番目の名前から行われる関係上、2番目の置換対象に1番目の内容を含んでいると
-        /// 本来1番目として置換されるべき表現が2番目の置換時に処理され、1番目の置換が行われない。
+        /// 本来1番目として置換されるべき表現が2番目の置換時に処理され、1番目の置換が行われません。
         /// </remarks>
         /// <param name="property">対象プロパティ。</param>
-        /// <returns>警告。</returns>
+        /// <returns>
+        /// 意図しない置換が発生する場合、警告を返します。
+        /// </returns>
         private List<ReplacingNameWarning> GetUnintentionalReplaceingWarningsBetweenOlds(ReplacingNameWarning.Property property)
         {
             var warnings = new List<ReplacingNameWarning>();
@@ -286,10 +313,12 @@ namespace Aow3NameReplacer.Models
         }
 
         /// <summary>
-        /// 文字化けに関する警告を取得する。
+        /// 文字化けに関する警告を取得します。
         /// </summary>
         /// <param name="property">対象プロパティ。</param>
-        /// <returns>警告。</returns>
+        /// <returns>
+        /// 文字化けの発生が見込まれる場合、警告を返します。
+        /// </returns>
         private List<ReplacingNameWarning> GetTextCorruptionWarnings(ReplacingNameWarning.Property property)
         {
             var warnings = new List<ReplacingNameWarning>();
@@ -328,7 +357,7 @@ namespace Aow3NameReplacer.Models
         }
 
         /// <summary>
-        /// ファイル内の名称を置換する。
+        /// ファイル内の名称を置換します。
         /// </summary>
         public void Replace()
         {

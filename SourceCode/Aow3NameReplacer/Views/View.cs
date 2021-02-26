@@ -3,17 +3,17 @@
 namespace Aow3NameReplacer.Views
 {
     /// <summary>
-    /// 表示。
+    /// ビューを提供します。
     /// </summary>
     public abstract class View
     {
         /// <summary>
-        /// 機能名を表示する。
+        /// 機能名を表示します。
         /// </summary>
         public virtual void ShowTitle() { }
 
         /// <summary>
-        /// 表示する。
+        /// メッセージを表示します。
         /// </summary>
         /// <param name="message">メッセージ。</param>
         public void Show(string message)
@@ -23,7 +23,7 @@ namespace Aow3NameReplacer.Views
         }
 
         /// <summary>
-        /// 表示する。
+        /// 項目と内容を表示します。
         /// </summary>
         /// <param name="name">項目。</param>
         /// <param name="value">内容。</param>
@@ -35,9 +35,9 @@ namespace Aow3NameReplacer.Views
         }
 
         /// <summary>
-        /// 警告を表示する。
+        /// 警告を表示します。
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">メッセージ。</param>
         public void ShowWarning(string message)
         {
             var lines = message.Split(Environment.NewLine);
@@ -51,10 +51,13 @@ namespace Aow3NameReplacer.Views
         }
 
         /// <summary>
-        /// ユーザーに確認する。
+        /// ユーザーに回答つきの確認を行います。
         /// </summary>
         /// <param name="message">メッセージ。</param>
-        /// <returns>操作の続行。（True：する、False：しない）</returns>
+        /// <returns>
+        /// 操作の続行（True：する、False：しない）を返します。
+        /// エラーに対するユーザーの応答が「続行」でない場合に<c>false</c>を返します。
+        /// </returns>
         public bool Confirm(string message)
         {
             var lines = message.Split(Environment.NewLine);
@@ -75,7 +78,7 @@ namespace Aow3NameReplacer.Views
         }
 
         /// <summary>
-        /// ユーザーの入力まで待機する。
+        /// ユーザーの入力まで待機します。
         /// </summary>
         public void Wait()
         {
@@ -83,10 +86,12 @@ namespace Aow3NameReplacer.Views
         }
 
         /// <summary>
-        /// 入力を促す。
+        /// ユーザーに入力を促します。
         /// </summary>
-        /// <param name="name">項目。</param>
-        /// <returns>入力内容。</returns>
+        /// <param name="name">入力項目。</param>
+        /// <returns>
+        /// ユーザーの入力内容を返します。
+        /// </returns>
         public string Require(string name)
         {
             Console.WriteLine(name + "：");

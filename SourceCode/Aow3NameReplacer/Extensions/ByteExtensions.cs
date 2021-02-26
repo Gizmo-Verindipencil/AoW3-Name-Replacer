@@ -4,19 +4,22 @@ using System.Text;
 namespace Aow3NameReplacer.Extensions
 {
     /// <summary>
-    /// <see cref="Byte"/> の拡張メソッド。
+    /// <see cref="byte"/> の拡張メソッド。
     /// </summary>
     public static class ByteExtensions
     {
         /// <summary>
-        /// <see cref="Byte"/>配列上で、指定した文字列に相当する情報を置換します。
+        /// <see cref="byte"/>配列上で、指定した文字列に相当する表現を置換します。
         /// </summary>
-        /// <param name="self"><see cref="Byte"/>の配列。</param>
+        /// <param name="self"><see cref="byte"/>の配列。</param>
         /// <param name="oldValue">検索対象。</param>
         /// <param name="newValue">置換対象。</param>
-        /// <param name="fixedLength">文字列の長さ。</param>
-        /// <returns>置換した配列。</returns>
-        public static Byte[] Replace(this byte[] self, string oldValue, string newValue, int fixedLength=0)
+        /// <param name="fixedLength">置換する文字列の長さ。</param>
+        /// <returns>
+        /// <paramref name="oldValue"/> を <paramref name="newValue"/> に置換した後の新しい配列のインスタンスを返します。
+        /// <paramref name="newValue"/> の文字長が <paramref name="fixedLength"/> よりも小さい場合、差分は半角スペースで調整されます。
+        /// </returns>
+        public static byte[] Replace(this byte[] self, string oldValue, string newValue, int fixedLength=0)
         {
             if (self == null || string.IsNullOrEmpty(oldValue) || string.IsNullOrEmpty(newValue))
             {
@@ -24,15 +27,20 @@ namespace Aow3NameReplacer.Extensions
                 return self;
             }
 
+            // 新しい配列のインスタンスを作成
+            byte[] array = default;
+            Array.Copy(self, array, self.Length);
+
             int sequence = 0;
             var oldPattern = Encoding.Unicode.GetBytes(oldValue);
             var newPattern = Encoding.Unicode.GetBytes(newValue);
+
             //置換後の文字列で発生する余白の文字数を算出
             int surplusLength = fixedLength >= newValue.Length ? fixedLength - newValue.Length : 0;
 
-            for (int i = 0; i < self.Length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
-                if (self[i] == oldPattern[sequence])
+                if (array[i] == oldPattern[sequence])
                 {
                     //マッチする場合は、最後まで一致するか監視する
                     sequence++;
@@ -42,12 +50,12 @@ namespace Aow3NameReplacer.Extensions
                         for (int j = 0; j < newPattern.Length; j++)
                         {
                             //マッチが開始した位置から新しい表現に置き換える
-                            self[i - sequence + j + 1] = newPattern[j];
+                            array[i - sequence + j + 1] = newPattern[j];
                         }
                         for (int k = 1; k < surplusLength * 2; k++)
                         {
                             //余った部分を空白で埋める
-                            self[i - sequence + newPattern.Length + k] = 0;
+                            array[i - sequence + newPattern.Length + k] = 0;
                         }
                         //空白で埋めた分だけインデックスを進める
                         i += (fixedLength * 2) - oldPattern.Length;
@@ -60,16 +68,19 @@ namespace Aow3NameReplacer.Extensions
                     sequence = 0;
                 }
             }
-            return self;
+
+            return array;
         }
 
         /// <summary>
-        /// <see cref="Byte"/>の配列上で、指定した文字列の登場をカウントします。
+        /// <see cref="byte"/>の配列上で、指定した文字列の登場をカウントします。
         /// </summary>
-        /// <param name="self"><see cref="Byte"/>の配列。</param>
+        /// <param name="self"><see cref="byte"/>の配列。</param>
         /// <param name="find">検索対象。</param>
-        /// <returns>出現数。</returns>
-        public static int Count(this Byte[] self, string find)
+        /// <returns>
+        /// <see cref="find"/> の出現数を返します。
+        /// </returns>
+        public static int Count(this byte[] self, string find)
         {
             if (self == null || string.IsNullOrEmpty(find))
             {
@@ -101,6 +112,7 @@ namespace Aow3NameReplacer.Extensions
                     sequence = 0;
                 }
             }
+
             return count;
         }
     }
