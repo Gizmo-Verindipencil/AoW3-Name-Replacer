@@ -28,7 +28,7 @@ namespace Aow3NameReplacer.Extensions
             }
 
             // 新しい配列のインスタンスを作成
-            byte[] array = default;
+            var array = new byte[self.Length];
             Array.Copy(self, array, self.Length);
 
             int sequence = 0;
